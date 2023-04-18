@@ -3,7 +3,14 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 
 # loading the saved models
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
 
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 leed_model = pickle.load(open('LEED_Model_old.sav', 'rb'))
 
 # page title
