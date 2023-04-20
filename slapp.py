@@ -148,7 +148,7 @@ with col3:
 with col4:
     ProjectTypes = st.selectbox('Project Types', options=list(PT.keys()),format_func= format_func_pt)
 with col1:
-        vdSel = st.selectbox('Project Types', options=list(VD.keys()), format_func=format_func_vd)
+        vdSel = st.selectbox('LEEDSystemVersionDisplayName', options=list(VD.keys()), format_func=format_func_vd)
 
 # creating a button for Prediction
 # GrossFloorArea = 6200.00
@@ -161,15 +161,7 @@ if st.button('Predict'):
         exit('Kindly enter Gross area')
     prediction = leed_model.predict(
         [[float(GrossFloorArea),int(State),int(OwnerTypes),int(ProjectTypes),int(vdSel)]])
-
-    if prediction[0] == 0:
-        st.success("Results of the prediction is: Silver")
-    if prediction[0] == 1:
-        st.success("Results of the prediction is: Gold")
-    if prediction[0] == 2:
-        st.success("Results of the prediction is: Platinum")
-    if prediction[0] == 3:
-        st.success("Results of the prediction is: Certified")
+    st.success("Results of the prediction is:" + prediction[0] )
 
 
 # import pickle
