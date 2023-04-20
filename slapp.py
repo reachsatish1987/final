@@ -105,12 +105,29 @@ PT = {
     '18': 'Warehouse and distribution centre',
 }
 
+VD = {
+    '0': 'LEED-HOMES v2008',
+    '1': 'LEED-NC v2009',
+    '2': 'LEED-NC 2.2',
+    '3': 'LEED v4.1 BD+C:Residential Single Family',
+    '4': 'LEED-CI v2009',
+    '5': 'LEED-EB:OM v2009',
+    '6': 'LEED-CS v2009',
+    '7': 'LEED-CI 2.0',
+    '8': 'LEED-CI Retail v2009',
+    '9': 'LEED-NC 2.1',
+    '10': 'LEED V4 BD+C: HOLR'
+}
+
 
 def format_func_st(option):
     return states[option]
 
 def format_func_ot(option):
     return OT[option]
+
+def format_func_vd(option):
+    return VD[option]
 
 def format_func_pt(option):
     return PT[option]
@@ -130,6 +147,8 @@ with col3:
 
 with col4:
     ProjectTypes = st.selectbox('Project Types', options=list(PT.keys()),format_func= format_func_pt)
+with col1:
+        vdSel = st.selectbox('Project Types', options=list(VD.keys()), format_func=format_func_vd)
 
 # creating a button for Prediction
 # GrossFloorArea = 6200.00
@@ -141,15 +160,16 @@ if st.button('Predict'):
         st.error('Kindly enter Gross area')
         exit('Kindly enter Gross area')
     prediction = leed_model.predict(
-        [[float(GrossFloorArea),int(State),int(OwnerTypes),int(ProjectTypes),0]])
+        [[float(GrossFloorArea),int(State),int(OwnerTypes),int(ProjectTypes),int(vdSel)]])
+
     if prediction[0] == 0:
-        st.success("Results of the prediction is:Silver")
+        st.success("Results of the prediction is: Silver")
     if prediction[0] == 1:
-        st.success("Results of the prediction is:Gold")
+        st.success("Results of the prediction is: Gold")
     if prediction[0] == 2:
-        st.success("Results of the prediction is:Platinum")
+        st.success("Results of the prediction is: Platinum")
     if prediction[0] == 3:
-        st.success("Results of the prediction is:Certified")
+        st.success("Results of the prediction is: Certified")
 
 
 # import pickle
