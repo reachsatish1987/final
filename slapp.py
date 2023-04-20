@@ -11,7 +11,7 @@ footer {visibility: hidden;}
 
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-leed_model = pickle.load(open('LEED_Model_old.sav', 'rb'))
+leed_model = pickle.load(open('LEED_Model_new.sav', 'rb'))
 
 # page title
 st.title('LEED Prediction using ML')
@@ -141,9 +141,15 @@ if st.button('Predict'):
         st.error('Kindly enter Gross area')
         exit('Kindly enter Gross area')
     prediction = leed_model.predict(
-        [[float(GrossFloorArea),int(State),int(OwnerTypes),int(ProjectTypes)]])
-
-    st.success(prediction[0])
+        [[float(GrossFloorArea),int(State),int(OwnerTypes),int(ProjectTypes),0]])
+    if prediction[0] == 0:
+        st.success("Results of the prediction is:Silver")
+    if prediction[0] == 1:
+        st.success("Results of the prediction is:Gold")
+    if prediction[0] == 2:
+        st.success("Results of the prediction is:Platinum")
+    if prediction[0] == 3:
+        st.success("Results of the prediction is:Certified")
 
 
 # import pickle
