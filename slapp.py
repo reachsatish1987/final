@@ -151,7 +151,7 @@ def format_func_vd(option):
 def format_func_pt(option):
     return PT[option]
 # getting the input data from the user
-col1, col2, col3, col4 = st.columns(4)
+col1, col2 = st.columns(2)
 
 with col1:
     GrossFloorArea = st.text_input('Gross Floor area')
@@ -161,11 +161,11 @@ with col1:
 with col2:
     State = st.selectbox("State", options=list(states.keys()),format_func= format_func_st)
 
-with col3:
+with col1:
     ProjectTypes = st.selectbox('Project Types', options=list(PT.keys()), format_func=format_func_pt)
 
 
-with col4:
+with col2:
     OwnerTypes = st.selectbox('Owner Types', options=list(OT.keys()), format_func=format_func_ot)
 with col1:
         vdSel = st.selectbox('LEEDSystemVersionDisplayName', options=list(VD.keys()), format_func=format_func_vd)
