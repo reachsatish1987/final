@@ -13,6 +13,25 @@ footer {visibility: hidden;}
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 leed_model = pickle.load(open('LEED_Model_new.sav', 'rb'))
 
+tabs_font_css = """
+<style>
+div[class*="stTextArea"] label {
+  font-size: 26px;
+  color: red;
+}
+
+div[class*="stTextInput"] label {
+  font-size: 26px;
+  color: blue;
+}
+
+div[class*="stSelectbox"] label {
+  font-size: 26px;
+  color: blue;
+}
+</style>
+"""
+st.write(tabs_font_css, unsafe_allow_html=True)
 # page title
 st.title('LEED Prediction using ML')
 
@@ -157,4 +176,5 @@ if st.button('Predict'):
         exit('Kindly enter Gross area')
     prediction = leed_model.predict(
         [[float(GrossFloorArea),int(State),int(OwnerTypes),int(ProjectTypes),int(vdSel)]])
-    st.success("Results of the prediction is:" + prediction[0] )
+    msg = "Results of the prediction is: " + str(prediction[0])
+    st.success(msg)
