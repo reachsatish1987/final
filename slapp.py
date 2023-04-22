@@ -3,14 +3,14 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 
 # loading the saved models
-hide_streamlit_style = """
-<style>
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-</style>
-
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+# hide_streamlit_style = """
+# <style>
+# #MainMenu {visibility: hidden;}
+# footer {visibility: hidden;}
+# </style>
+#
+# """
+# st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 leed_model = pickle.load(open('LEED_Model_new.sav', 'rb'))
 
 tabs_font_css = """
@@ -23,6 +23,10 @@ div[class*="stTextArea"] label {
 div[class*="stTextInput"] label {
   font-size: 26px;
   color: blue;
+}
+div[class*="stButton"] label {
+  font-size: 26px;
+  color: #4F8BF9;
 }
 
 div[class*="stSelectbox"] label {
@@ -174,7 +178,8 @@ if st.button('Predict'):
     if GrossFloorArea == '':
         st.error('Kindly enter Gross area')
         exit('Kindly enter Gross area')
-    prediction = leed_model.predict(
-        [[float(GrossFloorArea),int(State),int(OwnerTypes),int(ProjectTypes),int(vdSel)]])
-    msg = "Results of the prediction is: " + str(prediction[0])
-    st.success(msg)
+    else:
+        prediction = leed_model.predict(
+            [[float(GrossFloorArea),int(State),int(OwnerTypes),int(ProjectTypes),int(vdSel)]])
+        msg = "Results of the prediction is: " + str(prediction[0])
+        st.success(msg)
